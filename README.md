@@ -17,7 +17,9 @@ The data was sourced from Kaggle's Source Based Fake News Classification. It con
 
 Note: We will be training our classifiers on data labeled by a classification algorithm (pretty meta, I know). In an ideal situation, we would have large datasets hand-labeled by experts (or label based on something other than "real" or "fake").
 
-![data](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/Screen%20Shot%202020-11-29%20at%206.38.05%20PM.png "initial data")
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/pd-data-table-example.png" width="300" length="400"/>
+
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/news-text-example.png" width="200" length="300" />
 
 Source: https://www.kaggle.com/ruchi798/source-based-news-classification
 
