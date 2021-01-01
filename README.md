@@ -17,9 +17,9 @@ The data was sourced from Kaggle's Source Based Fake News Classification. It con
 
 Note: We will be training our classifiers on data labeled by a classification algorithm (pretty meta, I know). In an ideal situation, we would have large datasets hand-labeled by experts (or label based on something other than "real" or "fake").
 
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/pd-data-table-example.png" width="300" length="400"/>
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/pd-data-table-example.png" width="1100" length="1600"/>
 
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/news-text-example.png" width="200" length="300" />
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/news-text-example.png" width="11000" length="1400" />
 
 Source: https://www.kaggle.com/ruchi798/source-based-news-classification
 
