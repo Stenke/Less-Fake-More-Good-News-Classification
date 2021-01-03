@@ -1,5 +1,9 @@
 # Less-Fake-More-Good-News-Classification
-Training an algorithm on hand-labeled fake news dataset with the goal of flipping the script. Rather than focus on the 'fake', we have an opportunity to highlight the good.
+Training an algorithm on hand-labeled fake news dataset with the goal of flipping the script. Rather than focus on the 'fake', we have an opportunity to highlight the good. <br /> <br />
+<p align="center">
+  <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/yu-needz-dis-info-i-needs-fud-we-can-maek-deal-yes.jpeg" width="600"   length="800" />
+</p>
+
 
 # Business Problem
 Misinformation and disinformation is an increasing consideration in the public sphere. For the past 5 years, we've seen governments, news agencies, and social media companies grapple with misleading news and social posts. As we enter 2021, it seems more important than ever to find a consensus on information - what is true and factual. 
@@ -52,12 +56,14 @@ In order to classify our text data, seven classifier models were explored:
 Model performance was evaluted based on various metrics - Accuracy, Precision, Recall, F1-Score, and Average Precision. Additionally, computational speed was considered since the viability of our model in production will depend on how quickly we can run the model. In the case of our business problem, a model to help classify text so that real news could rise to the top in a recommender system, Precision seems the most important. Precision in our case means that news that we label as real is truly real (with little false positives). Validating misinformation is dangerous and worse than no information at all (shoutout to Naruto for that notion - watching it with my lil' sis over the holiday).
 
 Logistic Regression after tuning with confusion matrix:
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-results.png" width="700" length="900"/>
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-real-cm.png" width="600" length="600"/>
+<p align="center"> 
+  <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-results.png" width="700" length="900"/>
+  <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-real-cm.png" width="600" length="600"/>
+</p>
 
 A few models were chosen for GridSearchCV based on out-of-box performance. The winners were Logistic Regression, Gradient Boosting, and SVM. XGBoost was toyed with but turns out the model is smarter than my parameter tuning attempts. An example of performing GridSearch can be found below:
 
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/Gradient-Boost-GridSearch.png" width="1600" length="2000"/>
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/Gradient-Boost-GridSearch.png" width="2000" length="2200"/>
 
 ## Findings
 Our final model process consisted of the following:
