@@ -36,7 +36,7 @@ The following questions will guide our analysis and modeling as we evaluate perf
 Text data was initially explored with visualizations showing differences in real versus fake text data. Around 50 rows were removed due to NaN values leaving us with 2050 rows of text. Data was then processed through various NLP techniques including stopword removal, tokenization, vectorization using TF-IDF. There is a class imbalnced of 2/3 'fake' and 1/3 'real'. Initially, this imbalance was left as is. Later, SMOTE was explored though without any overall improvements. There was a similar experience with dimensionality reduction using TruncatedSVD. 
 
 Analysis of frequency distributions:
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/real-fake-top-words.png" width="1100" length="1600"/>
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/real-fake-top-words.png" width="1200" length="2000"/>
 
 Next, Train-Test-Split was employed with a 20% test size. Our dependent variable was the labeled data columm where 1 is Real and 0 is Fake (changed using LabelEncoder). Processed text data was used for explanatory variables with 300,000+ columns. Using Sci-Kit Learn's TF-IDF Vectorizer, trigrams were created and word count limited to 100,000 - 150,000. And now we're ready for modeling...
 
@@ -53,33 +53,11 @@ Model performance was evaluted based on various metrics - Accuracy, Precision, R
 
 Logistic Regression after tuning with confusion matrix:
 <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-results.png" width="700" length="900"/>
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-cm.png" width="600" length="600"/>
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-real-cm.png" width="600" length="600"/>
 
-A few models were chosen for GridSearchCV based on out-of-box performance. The winners were Logistic Regression, Gradient Boosting, and SVM. XGBoost was toyed with but turns out the model is smarter than my parameter tuning attempts.
+A few models were chosen for GridSearchCV based on out-of-box performance. The winners were Logistic Regression, Gradient Boosting, and SVM. XGBoost was toyed with but turns out the model is smarter than my parameter tuning attempts. An example of performing GridSearch can be found below:
 
-
-
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/real-fake-top-words.png" width="1100" length="1600"/>
-
-For our various models, dummy variables were created for categorical data. We also replaced zipcodes with their respective cities in King County. In order to meet assumptions for our models, we removed outliers by limiting pricing data to 2 standard deviations (95%).
-
-Below is a snippet of the bathroom binning code.
-
-![Bathroom-bin-code](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/bathroom-bins.png "Bathroom-bin-code")
-
-![Bathroom-bin-plot](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/bathroom-bin.png "Bathroom-bin-plot")
-
-And here is the library and code used to determine cities of King County from zipcodes.
-
-![Zipcodes](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/zipcode-code.png "Zipcode-to-city")
-
-After assuring regression assumptions, we used Scikit-Learn and Statsmodels libraries to create a baseline model for predicting housing prices. Using train-test-split, we iterated on the model to remove collinearity, extraneous variables, and created features all while aiming for an improved R-squared value and reduced RMSE. QQ plots were used to determine normality in our models. Finally, we performed cross-validation to ensure our model meets our expecation for generalization.
-
-Here we check collinear variables seen as the tuples below.
-
-<img src="https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/collinearity.png" width="200" length="300" />
-
-Additional processing code and graphs can be found in the EDA notebook.
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/Gradient-Boost-GridSearch.png" width="1600" length="2000"/>
 
 ## Findings
 Our final model process consisted of the following:
