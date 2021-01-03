@@ -35,6 +35,9 @@ The following questions will guide our analysis and modeling as we evaluate perf
 ## Methods
 Text data was initially explored with visualizations showing differences in real versus fake text data. Around 50 rows were removed due to NaN values leaving us with 2050 rows of text. Data was then processed through various NLP techniques including stopword removal, tokenization, vectorization using TF-IDF. There is a class imbalnced of 2/3 'fake' and 1/3 'real'. Initially, this imbalance was left as is. Later, SMOTE was explored though without any overall improvements. There was a similar experience with dimensionality reduction using TruncatedSVD. 
 
+Analysis of frequency distributions:
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/real-fake-top-words.png" width="1100" length="1600"/>
+
 Next, Train-Test-Split was employed with a 20% test size. Our dependent variable was the labeled data columm where 1 is Real and 0 is Fake (changed using LabelEncoder). Processed text data was used for explanatory variables with 300,000+ columns. Using Sci-Kit Learn's TF-IDF Vectorizer, trigrams were created and word count limited to 100,000 - 150,000. And now we're ready for modeling...
 
 In order to classify our text data, seven classifier models were explored:
@@ -46,13 +49,17 @@ In order to classify our text data, seven classifier models were explored:
   6. XGBoost
   7. SVM - Sigmoid & Linear Kernels
   
-Model performance was evaluted based on various metrics - Accuracy, Precision, Recall, F1-Score, and Average Precision. Additionally, computational speed was considered since the viability of our model in production will depend on how quickly we can run the model. In the case of our business problem, a model to help classify text so that real news could rise to the top in a recommender system, Precision seems the most important. Precision in our case means that news that we label as real is truly real (with little false positives). Validating misinformation is dangerous and worse than no information at all (shoutout to Naruto for that notion - watching it with my lil' sis over the holiday). 
+Model performance was evaluted based on various metrics - Accuracy, Precision, Recall, F1-Score, and Average Precision. Additionally, computational speed was considered since the viability of our model in production will depend on how quickly we can run the model. In the case of our business problem, a model to help classify text so that real news could rise to the top in a recommender system, Precision seems the most important. Precision in our case means that news that we label as real is truly real (with little false positives). Validating misinformation is dangerous and worse than no information at all (shoutout to Naruto for that notion - watching it with my lil' sis over the holiday).
 
-With this in mind, a few models were chosen for GridSearchCV based on out-of-box performance. These were Logistic Regression, Gradient Boosting, and SVM. XGBoost was toyed with but turns out the model is smarter than my parameter tuning attempts.
+Logistic Regression after tuning with confusion matrix:
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-results.png" width="700" length="900"/>
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-cm.png" width="600" length="600"/>
+
+A few models were chosen for GridSearchCV based on out-of-box performance. The winners were Logistic Regression, Gradient Boosting, and SVM. XGBoost was toyed with but turns out the model is smarter than my parameter tuning attempts.
 
 
 
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/pd-data-table-example.png" width="1100" length="1600"/>
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/real-fake-top-words.png" width="1100" length="1600"/>
 
 For our various models, dummy variables were created for categorical data. We also replaced zipcodes with their respective cities in King County. In order to meet assumptions for our models, we removed outliers by limiting pricing data to 2 standard deviations (95%).
 
