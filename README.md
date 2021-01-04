@@ -1,12 +1,16 @@
 # Less-Fake-More-Good-News-Classification
-Training an algorithm on hand-labeled fake news dataset with the goal of flipping the script. Rather than focus on the 'fake', we have an opportunity to highlight the good.
+Training an algorithm on hand-labeled fake news dataset with the goal of flipping the script. Rather than focus on the 'fake', we have an opportunity to highlight the good. <br /> <br />
+<p align="center">
+  <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/yu-needz-dis-info-i-needs-fud-we-can-maek-deal-yes.jpeg" width="600"   length="800" />
+</p>
+
 
 # Business Problem
 Misinformation and disinformation is an increasing consideration in the public sphere. For the past 5 years, we've seen governments, news agencies, and social media companies grapple with misleading news and social posts. As we enter 2021, it seems more important than ever to find a consensus on information - what is true and factual. 
 
 Social media is ingrained in societies across the world - billions of people turn to their Facebook groups, Twitter "subject-matter" experts, and other digital social outlets for news that shapes their view on the world. And with the potential virality of one false tweet, misinformation can become "factual" in the eyes of millions; a 21st-century threat that we need to grapple with. 
 
-One common method social media companies have employed is labeling information as "disputed" of "false". Another is to take down information after the fact. Both of these have an adverse effect - those who've had posts labeled or removed are made more sure that their information is true.
+One common method social media companies have employed is labeling information as "disputed" or "false". Another is to take down information after the fact. Both of these have an adverse effect - those who've had posts labeled or removed are made more sure that their information is true.
 
 I've decided to try another tactic: focus on the good, show less bad. To do so, I've ran & compared various classification models to label text (both social posts and website news stories) as either "Real" or "Fake". The intention is to find a classification model that is both accurate and lightweight enough to be used quickly.
 
@@ -19,11 +23,11 @@ Note: We will be training our classifiers on data labeled by a classification al
 
 <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/pd-data-table-example.png" width="1100" length="1600"/>
 
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/news-text-example.png" width="11000" length="1400" />
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/news-text-example.png" width="12000" length="1800" />
 
 Source: https://www.kaggle.com/ruchi798/source-based-news-classification
 
-## Questions
+# Questions
 The following questions will guide our analysis and modeling as we evaluate performance.
 
 1. How to best use NLP to process text data?
@@ -32,13 +36,15 @@ The following questions will guide our analysis and modeling as we evaluate perf
 
 3. What aglorithm(s) best balance computational costs and accuracy?
 
-## Methods
+# Methods
 Text data was initially explored with visualizations showing differences in real versus fake text data. Around 50 rows were removed due to NaN values leaving us with 2050 rows of text. Data was then processed through various NLP techniques including stopword removal, tokenization, vectorization using TF-IDF. There is a class imbalnced of 2/3 'fake' and 1/3 'real'. Initially, this imbalance was left as is. Later, SMOTE was explored though without any overall improvements. There was a similar experience with dimensionality reduction using TruncatedSVD. 
 
 Analysis of frequency distributions:
 <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/real-fake-top-words.png" width="1200" length="2000"/>
 
-Next, Train-Test-Split was employed with a 20% test size. Our dependent variable was the labeled data columm where 1 is Real and 0 is Fake (changed using LabelEncoder). Processed text data was used for explanatory variables with 300,000+ columns. Using Sci-Kit Learn's TF-IDF Vectorizer, trigrams were created and word count limited to 100,000 - 150,000. And now we're ready for modeling...
+Next, Train-Test-Split was employed with a 20% test size. Our dependent variable was the labeled data columm where 1 is Real and 0 is Fake (changed using LabelEncoder). Processed text data was used for explanatory variables with 300,000+ columns. Using Sci-Kit Learn's TF-IDF Vectorizer, trigrams were created and word count limits were tested with best results at 200,000. And now we're ready for modeling...
+
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/tfidf-params.png" width="1200" length="2000"/>
 
 In order to classify our text data, seven classifier models were explored:
   1. Logistic Regressoin
@@ -49,80 +55,43 @@ In order to classify our text data, seven classifier models were explored:
   6. XGBoost
   7. SVM - Sigmoid & Linear Kernels
   
-Model performance was evaluted based on various metrics - Accuracy, Precision, Recall, F1-Score, and Average Precision. Additionally, computational speed was considered since the viability of our model in production will depend on how quickly we can run the model. In the case of our business problem, a model to help classify text so that real news could rise to the top in a recommender system, Precision seems the most important. Precision in our case means that news that we label as real is truly real (with little false positives). Validating misinformation is dangerous and worse than no information at all (shoutout to Naruto for that notion - watching it with my lil' sis over the holiday).
-
-Logistic Regression after tuning with confusion matrix:
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-results.png" width="700" length="900"/>
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-real-cm.png" width="600" length="600"/>
+Model performance was evaluted based on various metrics - Accuracy, Precision, Recall, F1-Score, and Average Precision. Additionally, computational speed was considered since the viability of our model in production will depend on how quickly we can run the model. In the case of our business problem, a model to help classify text so that real news rises to the top in a recommender system, Precision seems the most important. Precision in our case means that news that we label as real is truly real (with little false positives). Validating misinformation is dangerous and worse than no information at all (shoutout to Naruto for that notion - watching it with my lil' sis over the holiday).
 
 A few models were chosen for GridSearchCV based on out-of-box performance. The winners were Logistic Regression, Gradient Boosting, and SVM. XGBoost was toyed with but turns out the model is smarter than my parameter tuning attempts. An example of performing GridSearch can be found below:
 
-<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/Gradient-Boost-GridSearch.png" width="1600" length="2000"/>
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/Gradient-Boost-GridSearch.png" width="2000" length="2200"/>
 
-## Findings
-Our final model process consisted of the following:
+# Findings
+A couple models made the final cut and deserve further exploration in the context of a greater system. These include Logistic Regression, for its speed and over-indexing for precision (which could prove to be a boon). The other model was SVM using a sigmoid kernel. This ran at a relatively fast speed, had the highest accuracy, and a better balance between precision and recall.
 
-1. Vanilla Model
+### 1. Logistic Regression:
 
-![Model1-summary](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/vanilla-summary.png "model1-summary")
+#### Over-Indexing for Precision
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-high-precision.png" width="700" length="900"/>
 
-![Model1-rmse](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/vanilla-rmse.png "model1-rmse")
+#### Highest Accuracy & F-1 Score
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/log-reg-high-accuracy.png" width="700" length="900"/>
 
-![Model1-QQ](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/vanilla-qq-plot.png "Model1-QQ")
+### 2. SVM - Sigmoid Kernel
 
-Base model R-Squared may be high from remaining spurious correlation. This would explain the large error shown by our RMSE.
 
-Additionally, the QQ plot is not normal (in the worst kind of way) with a heavy tail on the upper end. Outlier trimming to the rescue!
+#### Highest Overall Accuracy & F-1 Score
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/svm-high-accuracy.png" width="700" length="900"/>
 
-2. Model 2: Pricing Outliers Removed
+As mentioned earlier, each of these models could be selected as the top model depending on the context and first-order goals. Logistic Regression's strength is its speed and minimal computational complexity. Depending on parameter tuning, Logistic Regression has the highest Precision (95.2%) with fake news labeled as real or the second-highest overall Accuracy (81.5%) and F1-Score (70.3%) of any model (even the fancy ensemble ones).
 
-![Model2-summary](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/outliers-summary.png "model2-summary")
-
-![Model2-rmse](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/outliers-rmse.png "model2-rmse")
-
-![Model2-QQ](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/outliers-qq-plot.png "Model2-QQ")
-
-Narrowing the price range of our model reduced R-Squared but improved the accuracy by over 50%. Additionally, our QQ plot looks more normal (and cuter).
-
-3. Model 3: Scaled Explantory Variables (Min/Max)
-
-![Model3-summary](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/scale-summary.png "model3-summary")
-
-![Model3-rmse](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/scale-rmse.png "model3-rmse")
-
-4. Model 4: Find & Add Interactions
-
-![Model4-summary](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/interactions-summary.png "model4-summary")
-
-![Model4-rmse](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/interactions-rmse.png "model4-rmse")
-
-5. Model 5: Polynomial Variables Added
-
-![Model5-summary](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/poly-summary.png "model5-summary")
-
-![Model5-rmse](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/poly-rmse.png "model5-rmse")
-
-6. Model 6: P-Value Filtered (Stepwise Function)
-
-![Model6-summary](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/final-summary.png "model6-summary")
-
-![Model6-rmse](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/final-rmse.png "model6-rmse")
-
-![Model6-report](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/final-report.png "model6-report")
-
-![Model6-resid-plot](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/final-model-residuals-plot.png "model6-resid-plot")
-
-Our final model has an Adjusted R-Squared of 0.760 meaning 76% of the variability in house pricing (dependent variable) can be explained by our explantory variables in our model. Additionally, we reduced the root-mean-squared-error to 77,710, a 56.52% improvement. This means we can more accurately predict the housing price with less error on either end. The test prediction model was within 1.10% of the training model. Additionally, our cross-validated R-Squared is only 1.0% different from our training model. This is shows that the generalization of our model in the wild is promising. Of course, we'll never know until we try it!
-
+SVM using a Sigmoid Kernel performed best overall in terms of Accuracy (82.2%) and F1-Score (72.5%) with a compute time of just over 5 seconds. Is a 0.70% increase in accuracy worth it for an additional 4.7 second compute time? Well, I think that question may be above my pay grade, but I'd say no. Which means the winning model (that I almost chose not to even bother with) is the winner of the great news classification marathon.
 
 ## Conclusion
-We are focusing on homes in the $200,000 - $790,000 price range initially. This is both what our model is best suited for and aligns with opportunities we see in the data. Using the most impactful variables based on coefficients, we found specific opportunities especially based on cities. After looking at additional data provided by King County, we noticed that house pricing seemed to correlate with kindergarten readiness and enrollment. We suspect this extends to other school metrics.
+Addressing misinformation in the digital era is one of the most consequential challenge members of the tech community face. My brief foray into classification has shown me just how difficult this problem is. On one end, we have to create classifiers and recommender systems in the attention economy of today with  its huge swaths of text-based information. On the other hand, we have to remember that any decision we make has nuanced consequences - if you choose to optimize only real news rising to the top, what happens to posts that were classified as fake when they were in fact real? Even further, at what point do we step on First Ammendment rights by pushing away posts (even if it's malicious)? At the end of the day, we created a model that is able to classify news text as fake or real with 81.5% accuracy in just about half a second. On a perosnal note, this was an informative first step towards addressing the issue of disinformation on the web while expanding my knowledge of NLP and the murky waters of this issue.
 
-Below is a graph of Percentage Kindergarten Readiness of select school districts in King County as referenced earlier.
+Again, it is our intention that such a classifier is used in conjunction with a recommender system. In this way, the classifier is out of site allowing for real news (even if biased) to rise to the top of the feed. This is a different approach than others which choose to label posts with a warning after the fact or remove  retroactively - both which causes outrage and further entrenches a user's belief.
 
-![kc-kindergarten-graph](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/kindergarten-graph.png "kindergarten-readiness")
+As a side note, the best solution may be to create multiple classifiers that address different topics and increase focus on information that has the potential for large consequences. 
 
-With this in mind, we feel especially equipped for helping young families with well-paying jobs find their first home in Seattle and its suburbs. We found opportunities for customers who are looking for housing in a great school district for younger children that is still affordable. One example of this is Lake Washington School District, which includes the neighboring cities of Kirkland and Redmond. In our model, we see that Kirkland has a large positive coefficient, which is to be expected as it is known to be a wealthy suburb of Seattle. Right next door is Redmond that our model found a negative impact on pricing, meaning we can find affordable housing in a great school district and close access to similar ammenities. At Rest, we feel especially equipped for finding these opportunities for our young and aspiring families.
+Finally, there are clear ways in which we could improve our classifier. First, increase the diversity of text data - many of our posts were related to the 2016 election which reduces the generalizability of our model. Second, increase the amount of text data overall - 2050 rows of posts are not enough for a robust classifier. Third, improve the quality of data through hand-labeling by experts - though expensive, it is important considering the implications. Fourth, different NLP techniques could be used along with additional algorithms such as a CNN. I'm sure there are more, but I'll stop here.
 
-![kc-redmond-kirkland](https://github.com/Stenke/Seattle-Housing-Regression-Analysis/blob/main/Figures/KingCounty-Kirkland%2BRedmond.png "redmond-kirkland")
+A special thanks to Ibiki Morino from Naruto for the apropo inspiration for this project.
 
+"Disinformation is often worse than no information at all..." - Ibiki Morino, Naruto
+<img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/Ibiki_morino_by_alakazum-d4e4wsw.png" width="700" length="900"/>
