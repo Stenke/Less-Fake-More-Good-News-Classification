@@ -10,7 +10,7 @@ Misinformation and disinformation is an increasing consideration in the public s
 
 Social media is ingrained in societies across the world - billions of people turn to their Facebook groups, Twitter "subject-matter" experts, and other digital social outlets for news that shapes their view on the world. And with the potential virality of one false tweet, misinformation can become "factual" in the eyes of millions; a 21st-century threat that we need to grapple with. 
 
-One common method social media companies have employed is labeling information as "disputed" of "false". Another is to take down information after the fact. Both of these have an adverse effect - those who've had posts labeled or removed are made more sure that their information is true.
+One common method social media companies have employed is labeling information as "disputed" or "false". Another is to take down information after the fact. Both of these have an adverse effect - those who've had posts labeled or removed are made more sure that their information is true.
 
 I've decided to try another tactic: focus on the good, show less bad. To do so, I've ran & compared various classification models to label text (both social posts and website news stories) as either "Real" or "Fake". The intention is to find a classification model that is both accurate and lightweight enough to be used quickly.
 
