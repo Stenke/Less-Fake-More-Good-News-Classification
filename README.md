@@ -10,16 +10,16 @@ Misinformation and disinformation is an increasing consideration in the public s
 
 Social media is ingrained in societies across the world - billions of people turn to their Facebook groups, Twitter "subject-matter" experts, and other digital social outlets for news that shapes their view on the world. And with the potential virality of one false tweet, misinformation can become "factual" in the eyes of millions; a 21st-century threat that we need to grapple with. 
 
-One common method social media companies have employed is labeling information as "disputed" or "false". Another is to take down information after the fact. Both of these have an adverse effect - those who've had posts labeled or removed are made more sure that their information is true.
+One common method social media companies have employed is labeling information as "disputed" or "false". Another is to take down information after the fact. Both of these have an adverse effect - those who've had posts labeled or removed are made more sure that their information is true.
 
-I've decided to try another tactic: focus on the good, show less bad. To do so, I've ran & compared various classification models to label text (both social posts and website news stories) as either "Real" or "Fake". The intention is to find a classification model that is both accurate and lightweight enough to be used quickly.
+I've decided to try another tactic: focus on the good, show less bad. To do so, I've compared various classification models to label text (both social posts and website news stories) as either "Real" or "Fake". The intention is to find a classification model that is both accurate and lightweight enough to be useful in production cases.
 
 Once we have a trained classifier, we can combine it with a recommender system to rank truth and substantive content over false and inflaming. This is a key differentiation with the current norm of the attention commodity which often leads to division and outrage (as these better hold ones attention). The actual recommender system is beyond the scope of this project - we will stick to the first step of identifying the good news so that we can hype up our better angels.
 
 # The Data
-The data was sourced from Kaggle's Source Based Fake News Classification. It contains text and metadata scraped from 244 website and labeled with the BS Detector Chrome Extension by Daniel Sieradski.
+The data was sourced from Kaggle's Source Based Fake News Classification. It contains text and metadata scraped from 244 websites and labeled with the BS Detector Chrome Extension by Daniel Sieradski.
 
-Note: We will be training our classifiers on data labeled by a classification algorithm (pretty meta, I know). In an ideal situation, we would have large datasets hand-labeled by experts (or label based on something other than "real" or "fake").
+Note: We will be training our classifiers on data labeled by a classification algorithm (pretty meta, I know). In an ideal situation, we would have large datasets hand-labeled by experts.
 
 <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/pd-data-table-example.png" width="1100" length="1600"/>
 
@@ -37,7 +37,7 @@ The following questions will guide our analysis and modeling as we evaluate perf
 3. What aglorithm(s) best balance computational costs and accuracy?
 
 # Methods
-Text data was initially explored with visualizations showing differences in real versus fake text data. Around 50 rows were removed due to NaN values leaving us with 2050 rows of text. Data was then processed through various NLP techniques including stopword removal, tokenization, vectorization using TF-IDF. There is a class imbalnced of 2/3 'fake' and 1/3 'real'. Initially, this imbalance was left as is. Later, SMOTE was explored though without any overall improvements. There was a similar experience with dimensionality reduction using TruncatedSVD. 
+Text data was initially explored with visualizations showing differences in real versus fake text data. Around 50 rows were removed due to NaN values leaving us with 2050 rows of text. Data was then processed through various NLP techniques including stopword removal, tokenization, and vectorization using TF-IDF. There is a class imbalance of 2/3 'fake' to 1/3 'real'. Initially, this imbalance was left as is. Later, SMOTE was explored though without any overall improvements. There was a similar experience with dimensionality reduction using TruncatedSVD. 
 
 Analysis of frequency distributions:
 <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/real-fake-top-words.png" width="1200" length="2000"/>
