@@ -47,9 +47,9 @@ Next, Train-Test-Split was employed with a 20% test size. Our dependent variable
 <img src="https://github.com/Stenke/Less-Fake-More-Good-News-Classification/blob/main/Images/tfidf-params.png" width="1200" length="2000"/>
 
 In order to classify our text data, seven classifier models were explored:
-  1. Logistic Regressoin
+  1. Logistic Regression
   2. Decision Tree
-  3. Guassian Naive Bayes
+  3. Gaussian Naive Bayes
   4. Random Forest
   5. Gradient Boosting
   6. XGBoost
